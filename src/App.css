@@ -1,7 +1,3 @@
-.button {
-  min-width: 165px;
-}
-
 @keyframes wobble {
   0% {
     transform: translateY(0);
@@ -29,6 +25,10 @@
   }
 }
 
+.button {
+  min-width: 165px;
+}
+
 .loading {
   animation: wobble 3s var(--easing) infinite;
 }
@@ -38,7 +38,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
+  margin-top: 50px;
 }
 
 .formLabel {
@@ -49,4 +50,9 @@
 .formLabelText {
   align-self: center;
   margin-right: 10px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 20px;
 }

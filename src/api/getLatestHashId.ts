@@ -1,4 +1,4 @@
-import {HashId, ZkbKillmail} from "../types/types";
+import { HashId, ZkbKillmail } from '../types/types';
 
 const getLatestHashId = async (id: number): Promise<HashId[]> => {
   let hashesWithIds: HashId[] = [];
@@ -10,11 +10,14 @@ const getLatestHashId = async (id: number): Promise<HashId[]> => {
       headers: {
         'Accept-Encoding': 'gzip',
         'User-Agent': 'Whitmore',
-      }
-    }
+      },
+    };
 
     try {
-      const response = await fetch(`https://zkillboard.com/api/characterID/${id}/page/${page}/`, options);
+      const response = await fetch(
+        `https://zkillboard.com/api/characterID/${id}/page/${page}/`,
+        options,
+      );
 
       const data: ZkbKillmail[] = await response.json();
       if (data.length === 0) {
@@ -23,13 +26,13 @@ const getLatestHashId = async (id: number): Promise<HashId[]> => {
 
       const newKills: HashId[] = data.map((kill: ZkbKillmail) => ({
         id: kill.killmail_id,
-        hash: kill.zkb.hash
+        hash: kill.zkb.hash,
       }));
 
       hashesWithIds = hashesWithIds.concat(newKills);
       page++;
 
-      await new Promise(r => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, 1000));
     } catch (error) {
       console.error(error);
       throw error;
