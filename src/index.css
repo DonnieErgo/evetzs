@@ -9,6 +9,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  box-sizing: border-box;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -48,7 +49,6 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  /*transition: border-color 0.25s;*/
   transition: var(--transition);
 }
 button:hover {
@@ -56,7 +56,7 @@ button:hover {
 }
 button[disabled]:hover {
   border-color: transparent;
-  cursor: progress;
+  cursor: not-allowed;
 }
 button:focus,
 button:focus-visible {
@@ -71,7 +71,6 @@ input {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  /*transition: border-color 0.25s;*/
   transition: var(--transition);
 }
 input:hover {
@@ -79,7 +78,11 @@ input:hover {
 }
 input[disabled]:hover {
   border-color: transparent;
-  cursor: progress;
+  cursor: not-allowed;
+}
+input:focus {
+  border-color: #646cff;
+  outline: none;
 }
 
 p {

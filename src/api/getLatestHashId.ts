@@ -1,6 +1,6 @@
-import { HashId, ZkbKillmail } from '../types/types';
+import { EntityType, HashId, ZkbKillmail } from '../types/types';
 
-const getLatestHashId = async (id: number): Promise<HashId[]> => {
+const getLatestHashId = async (id: number, entityType: EntityType): Promise<HashId[]> => {
   let hashesWithIds: HashId[] = [];
   let page = 1;
 
@@ -9,13 +9,13 @@ const getLatestHashId = async (id: number): Promise<HashId[]> => {
       method: 'GET',
       headers: {
         'Accept-Encoding': 'gzip',
-        'User-Agent': 'Whitmore',
+        'User-Agent': 'https://evedata.nenashev.dev/ Maintainer: Whitmore mikhail@nenashev.dev',
       },
     };
 
     try {
       const response = await fetch(
-        `https://zkillboard.com/api/characterID/${id}/page/${page}/`,
+        `https://zkillboard.com/api/${entityType.toLowerCase()}ID/${id}/page/${page}/`,
         options,
       );
 

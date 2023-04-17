@@ -1,42 +1,40 @@
-import { FC, FormEvent, useState } from 'react';
-import './App.css';
-import getCharacterId from './api/getId';
+import { FC, useState } from 'react';
+import getId from './api/getId';
 import getLatestHashId from './api/getLatestHashId';
 import getTimestamps from './api/getTimestamps';
-import TimeChart from './components/timeChart';
-import { HashId, IdTime } from './types/types';
+import Form from './components/Form/form';
+import TimeChart from './components/TimeChart/timeChart';
+import { FormData, HashId, IdTime } from './types/types';
 
 // TODO: refactor css (global styles, css variables, adaptive, layout)
-// TODO: spinner for every load instead of wobble
-// TODO: add corp / alliance / system entities
+// TODO: fix loaders + disable hover on dropdown on loading
+// TODO: fix firefox and safari CORS error
 // TODO: refactor with axios ?
-// TODO: tests
-// TODO: deploy and release cycle via actions
 // TODO: check security
 // TODO: favicon and SEO
 // TODO: choose data timeframe (or let user choose 1y / last 1k kills)
-// TODO: render chart and fetch data simultaneously
-// TODO: permalink ?
-// TODO: font
-// TODO: remove console.log
+// TODO: render chart and fetch data simultaneously + animation
 // TODO: check for memoization/caching options
 // TODO: text errors for each api function
-// TODO: add check for too many rejects in Promise.allSettled
-// TODO: add local time adapter, button to use eve time or local
+// TODO: add check for too many rejects in Promise.allSettled, failsafe for user
+// TODO: add local time adapter as button "use local time"
 // TODO: add copyright and donation info
-// TODO: setup pre-commit linting and prettier https://github.com/azz/pretty-quick + https://github.com/typicode/husky
+// TODO: test linter and prettier hooks again
+// TODO: a11y
+// TODO: add short summary module like top3 systems + main TZ + lowsec/null
+// TODO: incorporate check for x-esi-error-limit-remain: 100 and x-esi-error-limit-reset: 44
+// TODO: tests
+// TODO: response type in getId
 
 const App: FC = () => {
-  const [name, setName] = useState('');
   const [timestampsArray, setTimestampsArray] = useState<IdTime[]>();
   const [loading, setLoading] = useState<boolean>(false);
   // const [error, setError] = useState<string>()
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleFormSubmit = async ({ name, entityType }: FormData) => {
     setLoading(true);
-    const entityID: number = await getCharacterId(name);
-    const latestHashId: HashId[] = await getLatestHashId(entityID);
+    const entityID: number = await getId(name, entityType);
+    const latestHashId: HashId[] = await getLatestHashId(entityID, entityType);
     const timestamps: IdTime[] = await getTimestamps(latestHashId);
     setTimestampsArray(timestamps);
     setLoading(false);
@@ -45,16 +43,8 @@ const App: FC = () => {
   return (
     <>
       {/*{error && <p className='error'>{error}</p>}*/}
-      <form onSubmit={(e) => handleSubmit(e)} className="form" autoComplete="on">
-        <label className="formLabel">
-          <p className="formLabelText">Character:</p>
-          <input disabled={loading} type="text" onChange={(e) => setName(e.target.value)} />
-        </label>
-        {/* loader component or button glow effect on load */}
-        <button className="button" disabled={loading} type="submit">
-          {loading ? <p className="loading">Loading...</p> : <p>Check Timezone</p>}
-        </button>
-      </form>
+      <Form loading={loading} onSubmit={handleFormSubmit} />
+      {/* show progress bar https://www.chartjs.org/docs/latest/samples/advanced/progress-bar.html */}
       {timestampsArray && <TimeChart timeArray={timestampsArray} />}
     </>
   );

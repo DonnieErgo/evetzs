@@ -1,0 +1,47 @@
+.button {
+  min-width: 165px;
+}
+
+.form {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+}
+
+.formLabel {
+  display: flex;
+  justify-content: center;
+}
+
+.loader {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  transition: var(--transition);
+}
+
+.loader:after {
+  content: ' ';
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.5s linear infinite;
+  transition: var(--transition);
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

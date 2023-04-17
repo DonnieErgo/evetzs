@@ -1,44 +1,38 @@
-// {
-//   "characters": [
-//   {
-//     "id": 95465499,
-//     "name": "CCP Bartender"
-//   },
-//   {
-//     "id": 2112625428,
-//     "name": "CCP Zoetrope"
-//   }
-//   ],
-//     "systems": [
-//     {
-//       "id": 30000142,
-//       "name": "Jita"
-//     }
-//   ]
-// }
+import { EntityType, GetIdResponse } from '../types/types';
 
-// TODO: response type
-
-const getCharacterId = async (name: string): Promise<number> => {
-
+const getId = async (name: string, entityType: EntityType): Promise<number> => {
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept-Language': 'en'
+      'Accept-Language': 'en',
     },
-    body: JSON.stringify([name])
+    body: JSON.stringify([name]),
   };
 
   try {
-    const response = await fetch('https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en', options);
-    const data = await response.json();
+    const response = await fetch(
+      'https://esi.evetech.net/latest/universe/ids/?datasource=tranquility&language=en',
+      options,
+    );
+    const data: GetIdResponse = await response.json();
 
-    return data.characters[0].id;
+    switch (entityType) {
+      case 'Character':
+        return data.characters[0].id;
+      case 'Corporation':
+        return data.corporations[0].id;
+      case 'Alliance':
+        return data.alliances[0].id;
+      case 'System':
+        return data.systems[0].id;
+      default:
+        return 0;
+    }
   } catch (error) {
     console.error(error);
     throw error;
   }
 };
 
-export default getCharacterId;
+export default getId;

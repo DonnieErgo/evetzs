@@ -1,7 +1,5 @@
 import { ESIKillmail, HashId, IdTime } from '../types/types';
 
-// hash+id > esikillmail > timestamp array
-
 const getTimestamps = async (hashIds: HashId[]): Promise<IdTime[]> => {
   const options = {
     method: 'GET',

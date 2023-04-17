@@ -1,14 +1,12 @@
 import 'chart.js/auto';
 import { Line } from 'react-chartjs-2';
-import { IdTime } from '../types/types';
+import { IdTime } from '../../types/types';
 
 interface TimeChartProps {
   timeArray: IdTime[];
 }
 
 const TimeChart = ({ timeArray }: TimeChartProps) => {
-  console.log(timeArray);
-
   const countTimestampsByHour = (timestamps: IdTime[]) => {
     const counts = new Array(24).fill(0);
     timestamps.forEach(({ time }) => {
@@ -18,8 +16,6 @@ const TimeChart = ({ timeArray }: TimeChartProps) => {
     counts[24] = counts[0];
     return counts;
   };
-
-  console.log(countTimestampsByHour(timeArray));
 
   const options = {
     type: 'line',
@@ -75,6 +71,7 @@ const TimeChart = ({ timeArray }: TimeChartProps) => {
 
   // add button to colorize TZs 5-8 Pacific, 8-15 AU/ASIA, 15-23 EU/RU, 23-5 US
   // fix kills to be between points and show tooltip of previous in between
+  // fix css
 
   return (
     <div style={{ margin: '100px auto 0', width: '1000px', height: '800px' }}>

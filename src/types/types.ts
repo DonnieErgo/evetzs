@@ -57,3 +57,22 @@ export interface IdTime {
   id: number;
   time: string;
 }
+
+export interface FormData {
+  name: string;
+  entityType: EntityType;
+}
+
+export type EntityType = 'Character' | 'Corporation' | 'Alliance' | 'System';
+
+export interface DropdownOptions {
+  value: EntityType;
+  label: EntityType;
+}
+
+export interface GetIdResponse {
+  characters: { id: number; name: string }[];
+  corporations: { id: number; name: string }[];
+  alliances: { id: number; name: string }[];
+  systems: { id: number; name: string }[];
+}
