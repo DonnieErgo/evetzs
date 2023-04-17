@@ -3,10 +3,6 @@ import { EntityType, GetIdResponse } from '../types/types';
 const getId = async (name: string, entityType: EntityType): Promise<number> => {
   const options = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept-Language': 'en',
-    },
     body: JSON.stringify([name]),
   };
 

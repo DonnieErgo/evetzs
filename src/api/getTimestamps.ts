@@ -1,20 +1,10 @@
 import { ESIKillmail, HashId, IdTime } from '../types/types';
 
 const getTimestamps = async (hashIds: HashId[]): Promise<IdTime[]> => {
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept-Language': 'en',
-      'Accept-Encoding': 'gzip, deflate, br',
-    },
-  };
-
   const responses = hashIds.map(async (item) => {
     try {
       const response = await fetch(
         `https://esi.evetech.net/latest/killmails/${item.id}/${item.hash}/?datasource=tranquility`,
-        options,
       );
       const data: ESIKillmail = await response.json();
 

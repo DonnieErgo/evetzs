@@ -5,24 +5,12 @@ const getLatestHashId = async (id: number, entityType: EntityType): Promise<Hash
   let page = 1;
 
   while (hashesWithIds.length < 1000 && page <= 10) {
-    const options = {
-      method: 'GET',
-      headers: {
-        'Accept-Encoding': 'gzip',
-        'User-Agent': 'https://evedata.nenashev.dev/ Maintainer: Whitmore mikhail@nenashev.dev',
-      },
-    };
-
     try {
       const response = await fetch(
         `https://zkillboard.com/api/${entityType.toLowerCase()}ID/${id}/page/${page}/`,
-        options,
       );
 
       const data: ZkbKillmail[] = await response.json();
-      if (data.length === 0) {
-        break;
-      }
 
       const newKills: HashId[] = data.map((kill: ZkbKillmail) => ({
         id: kill.killmail_id,
