@@ -1,10 +1,12 @@
 import { EntityType, GetIdResponse } from '../types/types';
 
-const getId = async (name: string, entityType: EntityType): Promise<number> => {
+const getId = async (name: string, entityType: EntityType): Promise<number | string> => {
   const options = {
     method: 'POST',
     body: JSON.stringify([name]),
   };
+
+  const notFoundErr = new Error(`${entityType} was not found`);
 
   try {
     const response = await fetch(
@@ -14,20 +16,29 @@ const getId = async (name: string, entityType: EntityType): Promise<number> => {
     const data: GetIdResponse = await response.json();
 
     switch (entityType) {
-      case 'Character':
+      case 'Character': {
+        if (!data.characters) throw notFoundErr;
         return data.characters[0].id;
-      case 'Corporation':
+      }
+      case 'Corporation': {
+        if (!data.corporations) throw notFoundErr;
         return data.corporations[0].id;
-      case 'Alliance':
+      }
+      case 'Alliance': {
+        if (!data.alliances) throw notFoundErr;
         return data.alliances[0].id;
-      case 'System':
+      }
+      case 'System': {
+        if (!data.systems) throw notFoundErr;
         return data.systems[0].id;
+      }
       default:
-        return 0;
+        throw notFoundErr;
     }
   } catch (error) {
-    console.error(error);
-    throw error;
+    let message = 'Unknown Error';
+    if (error instanceof Error) message = error.message;
+    return message;
   }
 };
 

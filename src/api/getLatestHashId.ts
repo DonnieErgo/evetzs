@@ -1,6 +1,6 @@
 import { EntityType, HashId, ZkbKillmail } from '../types/types';
 
-const getLatestHashId = async (id: number, entityType: EntityType): Promise<HashId[]> => {
+const getLatestHashId = async (id: number, entityType: EntityType): Promise<HashId[] | string> => {
   let hashesWithIds: HashId[] = [];
   let page = 1;
 
@@ -9,6 +9,7 @@ const getLatestHashId = async (id: number, entityType: EntityType): Promise<Hash
       const response = await fetch(
         `https://zkillboard.com/api/${entityType.toLowerCase()}ID/${id}/page/${page}/`,
       );
+      if (!response.ok) throw new Error('Could not get latest hashes and ids');
 
       const data: ZkbKillmail[] = await response.json();
 
@@ -22,8 +23,9 @@ const getLatestHashId = async (id: number, entityType: EntityType): Promise<Hash
 
       await new Promise((r) => setTimeout(r, 1000));
     } catch (error) {
-      console.error(error);
-      throw error;
+      let message = 'Unknown Error';
+      if (error instanceof Error) message = error.message;
+      return message;
     }
   }
 

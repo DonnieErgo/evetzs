@@ -1,4 +1,5 @@
 import 'chart.js/auto';
+import { FC } from 'react';
 import { Line } from 'react-chartjs-2';
 import { IdTime } from '../../types/types';
 
@@ -6,7 +7,7 @@ interface TimeChartProps {
   timeArray: IdTime[];
 }
 
-const TimeChart = ({ timeArray }: TimeChartProps) => {
+const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
   const countTimestampsByHour = (timestamps: IdTime[]) => {
     const counts = new Array(24).fill(0);
     timestamps.forEach(({ time }) => {
@@ -22,12 +23,18 @@ const TimeChart = ({ timeArray }: TimeChartProps) => {
     responsive: true,
     scales: {
       y: {
+        ticks: {
+          color: 'white',
+        },
         title: {
           display: true,
           text: '1000 Latest Kills',
         },
       },
       x: {
+        ticks: {
+          color: 'white',
+        },
         title: {
           display: true,
           text: 'EvE Time',
@@ -74,7 +81,7 @@ const TimeChart = ({ timeArray }: TimeChartProps) => {
   // fix css
 
   return (
-    <div style={{ margin: '100px auto 0', width: '1000px', height: '800px' }}>
+    <div style={{ margin: '100px auto 0', width: '100%', height: '100%' }}>
       <Line data={data} options={options} />
     </div>
   );

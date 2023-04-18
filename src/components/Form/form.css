@@ -1,10 +1,12 @@
 .button {
   min-width: 165px;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .form {
   max-width: 100%;
   display: flex;
+  flex-flow: wrap;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -33,11 +35,11 @@
   border-radius: 50%;
   border: 2px solid #fff;
   border-color: #fff transparent #fff transparent;
-  animation: lds-dual-ring 1.5s linear infinite;
+  animation: loader 1.5s linear infinite;
   transition: var(--transition);
 }
 
-@keyframes lds-dual-ring {
+@keyframes loader {
   0% {
     transform: rotate(0deg);
   }

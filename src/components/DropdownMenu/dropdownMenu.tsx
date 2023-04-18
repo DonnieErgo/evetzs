@@ -1,5 +1,5 @@
 import './dropdownMenu.css';
-import { useEffect, useState, MouseEvent, SetStateAction } from 'react';
+import { useEffect, useState, MouseEvent, SetStateAction, FC } from 'react';
 import { DropdownOptions, EntityType } from '../../types/types';
 
 interface DropdownMenuProps {
@@ -17,7 +17,7 @@ const Icon = () => (
   </svg>
 );
 
-const DropdownMenu = ({ options, onChange, loading }: DropdownMenuProps) => {
+const DropdownMenu: FC<DropdownMenuProps> = ({ options, onChange, loading }) => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [selectedValue, setSelectedValue] = useState<DropdownOptions>(options[0]);
 

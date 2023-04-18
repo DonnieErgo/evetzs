@@ -1,6 +1,9 @@
 import { ESIKillmail, HashId, IdTime } from '../types/types';
 
-const getTimestamps = async (hashIds: HashId[]): Promise<IdTime[]> => {
+const getTimestamps = async (hashIds: HashId[]): Promise<IdTime[] | string> => {
+  const countRejectedPromises = (results: PromiseSettledResult<unknown>[]): number =>
+    results.filter((result) => result.status === 'rejected').length;
+
   const responses = hashIds.map(async (item) => {
     try {
       const response = await fetch(
@@ -16,6 +19,10 @@ const getTimestamps = async (hashIds: HashId[]): Promise<IdTime[]> => {
   });
 
   const settledResponses = await Promise.allSettled(responses);
+  if (countRejectedPromises(settledResponses) > 50) {
+    console.error('Unable to get timestamps from ESI');
+    return 'Unable to get timestamps from ESI';
+  }
 
   return settledResponses
     .filter((res): res is PromiseFulfilledResult<IdTime> => res.status === 'fulfilled')
