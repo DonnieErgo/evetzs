@@ -1,12 +1,12 @@
 .error {
   display: none;
   position: absolute;
-  top: 0;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #ff4d4f;
   color: #fff;
-  padding: 8px;
+  padding: 6px;
   border-radius: 4px;
   font-size: 14px;
   z-index: 1;
@@ -32,7 +32,6 @@
 
 @media only screen and (max-width: 480px) {
   .error {
-    width: 80%;
-    padding: 2px;
+    padding: 4px;
   }
 }

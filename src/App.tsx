@@ -11,10 +11,10 @@ import { FormData, HashId, IdTime } from './types/types';
 /*
   TODO: refactor css (global styles, css variables, adaptive, layout)
   TODO: fix loaders + disable hover on dropdown on loading
-  TODO: fix firefox and safari CORS error
   TODO: refactor with axios ?
   TODO: check security
-  TODO: favicon and SEO
+  TODO: add button to
+  TODO: SEO
   TODO: choose data timeframe (or let user choose 1y / last 1k kills)
   TODO: render chart and fetch data simultaneously + animation
   TODO: check for memoization/caching options
@@ -27,7 +27,6 @@ import { FormData, HashId, IdTime } from './types/types';
   TODO: add short summary module like top3 systems + main TZ + lowsec/null
   TODO: incorporate check for x-esi-error-limit-remain: 100 and x-esi-error-limit-reset: 44
   TODO: tests
-  TODO: response type in getId
 */
 
 const App: FC = () => {
@@ -35,35 +34,32 @@ const App: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
+  const handleError = (errString: string) => {
+    setError(errString);
+    setLoading(false);
+    setTimeout(() => {
+      setError('');
+    }, 3000);
+    return;
+  };
+
   const handleFormSubmit = async ({ name, entityType }: FormData) => {
     setLoading(true);
     const entityID: number | string = await getId(name, entityType);
     if (typeof entityID === 'string') {
-      setError(entityID);
-      setLoading(false);
-      setTimeout(() => {
-        setError('');
-      }, 3000);
+      handleError(entityID);
       return;
     }
 
     const latestHashId: HashId[] | string = await getLatestHashId(entityID, entityType);
     if (typeof latestHashId === 'string') {
-      setError(latestHashId);
-      setLoading(false);
-      setTimeout(() => {
-        setError('');
-      }, 3000);
+      handleError(latestHashId);
       return;
     }
 
     const timestamps: IdTime[] | string = await getTimestamps(latestHashId);
     if (typeof timestamps === 'string') {
-      setError(timestamps);
-      setLoading(false);
-      setTimeout(() => {
-        setError('');
-      }, 3000);
+      handleError(timestamps);
       return;
     }
 

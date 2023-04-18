@@ -22,7 +22,7 @@ const Form: FC<FormProps> = ({ onSubmit, loading }) => {
     { value: 'System', label: 'System' },
   ];
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (nameValidator({ name, entityType })) {
