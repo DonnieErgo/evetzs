@@ -1,8 +1,3 @@
-.button {
-  min-width: 165px;
-  color: rgba(255, 255, 255, 0.87);
-}
-
 .form {
   max-width: 100%;
   display: flex;
@@ -27,15 +22,19 @@
   font-family: inherit;
   background-color: #1a1a1a;
   transition: var(--transition);
+  color: var(--textColorLight);
 }
+
 .input:hover {
-  border-color: #646cff;
+  border-color: var(--accentColor);
 }
+
 .input[disabled]:hover {
   border-color: transparent;
   cursor: not-allowed;
 }
+
 .input:focus {
-  border-color: #646cff;
+  border-color: var(--accentColor);
   outline: none;
 }

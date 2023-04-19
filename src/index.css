@@ -11,8 +11,9 @@
   font-weight: 400;
   box-sizing: border-box;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  /*color-scheme: light dark;*/
+  --textColorLight: rgba(255, 255, 255, 0.87);
+  --accentColor: #646cff;
   background-color: #242424;
 
   font-synthesis: none;

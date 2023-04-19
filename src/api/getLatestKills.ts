@@ -1,13 +1,23 @@
-import { EntityType, HashId, ZkbKillmail } from '../types/types';
+import { EntityType, HashId, KillDataType, ZkbKillmail } from '../types/types';
 
-const getLatestHashId = async (id: number, entityType: EntityType): Promise<HashId[] | string> => {
+export interface GetLatestDataProps {
+  id: number;
+  entityType: EntityType;
+  dataType: KillDataType;
+}
+
+const getLatestKills = async ({
+  id,
+  entityType,
+  dataType = 'kills',
+}: GetLatestDataProps): Promise<HashId[] | string> => {
   let hashesWithIds: HashId[] = [];
   let page = 1;
 
   while (hashesWithIds.length < 1000 && page <= 10) {
     try {
       const response = await fetch(
-        `https://zkillboard.com/api/${entityType.toLowerCase()}ID/${id}/page/${page}/`,
+        `https://zkillboard.com/api/${dataType}/${entityType.toLowerCase()}ID/${id}/page/${page}/`,
       );
       if (!response.ok) throw new Error('Could not get latest hashes and ids');
 
@@ -32,4 +42,4 @@ const getLatestHashId = async (id: number, entityType: EntityType): Promise<Hash
   return hashesWithIds;
 };
 
-export default getLatestHashId;
+export default getLatestKills;

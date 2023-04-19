@@ -76,3 +76,5 @@ export interface GetIdResponse {
   alliances: { id: number; name: string }[];
   systems: { id: number; name: string }[];
 }
+
+export type KillDataType = 'kills' | 'losses' | 'w-space' | 'solo';

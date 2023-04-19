@@ -1,4 +1,5 @@
 import 'chart.js/auto';
+import './timeChart.css';
 import { Chart as ChartJS } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { FC, useState } from 'react';
@@ -40,6 +41,8 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
     counts[24] = counts[0];
     return counts;
   };
+
+  // fix annotation types
 
   const options: LineChartOptions = {
     type: 'line',
@@ -107,18 +110,14 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
     ],
   };
 
-  const handleClick = (): void => {
-    setShowTimezones(!showTimezones);
-  };
-
-  // fix annotation types
+  const handleClick = (): void => setShowTimezones(!showTimezones);
 
   return (
     <>
-      <div style={{ margin: '100px auto 0', width: '100%', height: '100%' }}>
+      <div className="chartContainer">
         <Line data={data} options={options} />
       </div>
-      <div style={{ marginTop: '20px', width: '100%', display: 'flex', justifyContent: 'end' }}>
+      <div className="buttonContainer">
         <Button type="button" onClick={handleClick}>
           Show Timezones
         </Button>

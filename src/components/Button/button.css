@@ -8,10 +8,12 @@
   background-color: #1a1a1a;
   cursor: pointer;
   transition: var(--transition);
+  min-width: 165px;
+  color: var(--textColorLight);
 }
 
 .button:hover {
-  border-color: #646cff;
+  border-color: var(--accentColor);
 }
 
 .button[disabled]:hover {

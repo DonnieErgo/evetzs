@@ -13,7 +13,13 @@ const Footer: FC = () => {
 
   return (
     <div
-      style={{ position: 'fixed', bottom: '20px', right: '30px', padding: '20px' }}
+      style={{
+        color: 'var(--textColorLight)',
+        position: 'fixed',
+        bottom: '20px',
+        right: '30px',
+        padding: '20px',
+      }}
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
     >

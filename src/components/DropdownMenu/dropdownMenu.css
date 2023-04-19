@@ -41,5 +41,5 @@
 }
 
 .dropdown-item.selected {
-  background-color: #646cff;
+  background-color: var(--accentColor);
 }
