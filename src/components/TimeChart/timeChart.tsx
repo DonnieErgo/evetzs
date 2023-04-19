@@ -1,5 +1,5 @@
 import 'chart.js/auto';
-import { Chart } from 'chart.js';
+import { Chart as ChartJS } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { FC, useState } from 'react';
 import { Line } from 'react-chartjs-2';
@@ -17,8 +17,10 @@ interface TimeChartProps {
   timeArray: IdTime[];
 }
 
+export type LineChartOptions = Parameters<typeof Line>['0']['options'];
+
 const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
-  Chart.register(annotationPlugin);
+  ChartJS.register(annotationPlugin);
   const [showTimezones, setShowTimezones] = useState<boolean>(false);
 
   const annotations = [
@@ -39,7 +41,7 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
     return counts;
   };
 
-  const options = {
+  const options: LineChartOptions = {
     type: 'line',
     responsive: true,
     scales: {
@@ -72,6 +74,8 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
         common: {
           drawTime: 'beforeDraw',
         },
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         annotations: showTimezones ? annotations : {},
       },
       legend: {
@@ -107,16 +111,18 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
     setShowTimezones(!showTimezones);
   };
 
-  // fix options types
+  // fix annotation types
 
   return (
     <>
       <div style={{ margin: '100px auto 0', width: '100%', height: '100%' }}>
         <Line data={data} options={options} />
       </div>
-      <Button type="button" onClick={handleClick}>
-        Show Timezones
-      </Button>
+      <div style={{ marginTop: '20px', width: '100%', display: 'flex', justifyContent: 'end' }}>
+        <Button type="button" onClick={handleClick}>
+          Show Timezones
+        </Button>
+      </div>
     </>
   );
 };
