@@ -1,6 +1,7 @@
 import './dropdownMenu.css';
 import { useEffect, useState, MouseEvent, SetStateAction, FC } from 'react';
 import { DropdownOptions, EntityType } from '../../types/types';
+import Button from '../Button/Button';
 
 interface DropdownMenuProps {
   options: DropdownOptions[];
@@ -49,31 +50,27 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ options, onChange, loading }) => 
 
   return (
     <div className="dropdown-container" onClick={(e) => handleInputClick(e)}>
-      {loading ? (
-        <div className="loader" />
-      ) : (
-        <>
-          <div className="dropdown-input">
-            <div className="dropdown-selected-value">{getDisplay()}</div>
-            <div className={`dropdown-tool ${showMenu && 'open'}`}>
-              <Icon />
-            </div>
+      <Button onClick={undefined} glow={false} loading={loading} type="button">
+        <div className="dropdown-input">
+          <div className="dropdown-selected-value">{getDisplay()}</div>
+          <div className={`dropdown-tool ${showMenu && 'open'}`}>
+            <Icon />
           </div>
-          {showMenu && (
-            <div className="dropdown-menu">
-              {options.map((option) => (
-                <div
-                  onClick={() => onItemClick(option)}
-                  key={option.value}
-                  className={`dropdown-item ${isSelected(option) && 'selected'}`}
-                >
-                  {option.label}
-                </div>
-              ))}
-            </div>
-          )}
-        </>
-      )}
+        </div>
+        {showMenu && (
+          <div className="dropdown-menu">
+            {options.map((option) => (
+              <div
+                onClick={() => onItemClick(option)}
+                key={option.value}
+                className={`dropdown-item ${isSelected(option) && 'selected'}`}
+              >
+                {option.label}
+              </div>
+            ))}
+          </div>
+        )}
+      </Button>
     </div>
   );
 };

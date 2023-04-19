@@ -1,6 +1,7 @@
 import { FormEvent, useState, FC } from 'react';
 import nameValidator from '../../helpers/nameValidator';
 import { DropdownOptions, EntityType, FormData } from '../../types/types';
+import Button from '../Button/Button';
 import DropdownMenu from '../DropdownMenu/dropdownMenu';
 import './form.css';
 import Error from '../Error/error';
@@ -36,14 +37,14 @@ const Form: FC<FormProps> = ({ onSubmit, loading }) => {
     }
   };
 
-  // If import is ok make start button glow a bit
-  // Fix spinners
+  // If import is ok make start button may glow a bit
 
   return (
     <form onSubmit={(e) => handleSubmit(e)} className="form">
       {validationError && <Error showing={Boolean(validationError)} message={validationError} />}
       <label className="formLabel">
         <input
+          className="input"
           disabled={loading}
           type="text"
           value={name}
@@ -56,9 +57,9 @@ const Form: FC<FormProps> = ({ onSubmit, loading }) => {
         onChange={(v) => setEntityType(v)}
         loading={loading}
       />
-      <button className="button" disabled={loading} type="submit">
-        {loading ? <div className="loader" /> : <p>Start</p>}
-      </button>
+      <Button onClick={undefined} glow={true} loading={loading} type="submit">
+        Start
+      </Button>
     </form>
   );
 };

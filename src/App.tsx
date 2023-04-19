@@ -10,23 +10,20 @@ import { FormData, HashId, IdTime } from './types/types';
 
 /*
   TODO: refactor css (global styles, css variables, adaptive, layout)
-  TODO: fix loaders + disable hover on dropdown on loading
-  TODO: refactor with axios ?
-  TODO: check security
-  TODO: add button to
+  TODO: add module showing which days of week player is doing, maybe even day-dependent time
+  TODO: add button to show timezones on Chart
   TODO: SEO
   TODO: choose data timeframe (or let user choose 1y / last 1k kills)
   TODO: render chart and fetch data simultaneously + animation
   TODO: check for memoization/caching options
-  TODO: text errors for each api function
-  TODO: add check for too many rejects in Promise.allSettled, failsafe for user
   TODO: add local time adapter as button "use local time"
   TODO: add copyright and donation info
   TODO: test linter and prettier hooks again
   TODO: a11y
   TODO: add short summary module like top3 systems + main TZ + lowsec/null
-  TODO: incorporate check for x-esi-error-limit-remain: 100 and x-esi-error-limit-reset: 44
-  TODO: tests
+  TODO: add switchable losses chart
+  TODO: add cap+ shitype switch
+  TODO: LONGTERM web-app analogue for https://github.com/Eve-PySpy/PySpy
 */
 
 const App: FC = () => {
@@ -70,6 +67,7 @@ const App: FC = () => {
   return (
     <>
       {error && <Error showing={Boolean(error)} message={error} />}
+      <div style={{ position: 'fixed', top: '10px', left: '10px', color: '#20a289' }}>beta</div>
       <Form loading={loading} onSubmit={handleFormSubmit} />
       {/* show progress bar https://www.chartjs.org/docs/latest/samples/advanced/progress-bar.html */}
       {timestampsArray && <TimeChart timeArray={timestampsArray} />}
