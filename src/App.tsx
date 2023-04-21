@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import getId from './api/getId';
-import getLatestKills, { GetLatestDataProps } from './api/getLatestKills';
 import getTimestamps from './api/getTimestamps';
+import getZKBData from './api/getZKBData';
 import Error from './components/Error/error';
 import Footer from './components/Footer/footer';
 import Form from './components/Form/form';
@@ -9,9 +9,8 @@ import TimeChart from './components/TimeChart/timeChart';
 import { FormData, HashId, IdTime } from './types/types';
 
 /*
-  TODO: ! refactor css (global styles, css variables)
-  TODO: ! light/dark themes with a switch and auto-theme in css
-  TODO: ! SEO
+  TODO: ! add theme switch, fix dropdown opacity on light
+  TODO: ! SEO as meta data, robots.txt and previews for reddit/discord/etc
   TODO: ! add checkboxes for losses / w-space / solo datasets
   TODO: ! add option to set amount of kills to gather in api function
   TODO: ! check for memoization/caching options
@@ -39,7 +38,7 @@ const App: FC = () => {
     return;
   };
 
-  const handleFormSubmit = async ({ name, entityType }: FormData) => {
+  const handleFormSubmit = async ({ name, entityType, onlyFreshData }: FormData) => {
     setLoading(true);
     const entityID: number | string = await getId(name, entityType);
     if (typeof entityID === 'string') {
@@ -47,13 +46,9 @@ const App: FC = () => {
       return;
     }
 
-    const zkbKillsDataPack: GetLatestDataProps = {
-      id: entityID,
-      entityType: entityType,
-      dataType: 'kills',
-    };
+    const zkbKillsDataPack = { id: entityID, entityType: entityType };
 
-    const latestHashId: HashId[] | string = await getLatestKills(zkbKillsDataPack);
+    const latestHashId: HashId[] | string = await getZKBData(zkbKillsDataPack);
     if (typeof latestHashId === 'string') {
       handleError(latestHashId);
       return;

@@ -44,6 +44,7 @@ const Form: FC<FormProps> = ({ onSubmit, loading }) => {
       {validationError && <Error showing={Boolean(validationError)} message={validationError} />}
       <label className="formLabel">
         <input
+          placeholder={'Enter name...'}
           className="input"
           disabled={loading}
           type="text"

@@ -14,7 +14,7 @@ const Footer: FC = () => {
   return (
     <div
       style={{
-        color: 'var(--textColorLight)',
+        color: 'var(--textColor)',
         position: 'fixed',
         bottom: '20px',
         right: '30px',

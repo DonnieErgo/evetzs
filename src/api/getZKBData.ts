@@ -3,10 +3,10 @@ import { EntityType, HashId, KillDataType, ZkbKillmail } from '../types/types';
 export interface GetLatestDataProps {
   id: number;
   entityType: EntityType;
-  dataType: KillDataType;
+  dataType?: KillDataType;
 }
 
-const getLatestKills = async ({
+const getZKBData = async ({
   id,
   entityType,
   dataType = 'kills',
@@ -42,4 +42,4 @@ const getLatestKills = async ({
   return hashesWithIds;
 };
 
-export default getLatestKills;
+export default getZKBData;

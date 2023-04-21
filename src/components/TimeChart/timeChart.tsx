@@ -1,35 +1,109 @@
 import 'chart.js/auto';
 import './timeChart.css';
-import { Chart as ChartJS } from 'chart.js';
+import { Chart } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { FC, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { IdTime } from '../../types/types';
 import Button from '../Button/Button';
-import {
-  pacificAnnotation,
-  euRuAnnotation,
-  auAsiaAnnotation,
-  usAnnotation,
-  usAnnotation2,
-} from './config';
 
 interface TimeChartProps {
   timeArray: IdTime[];
 }
 
-export type LineChartOptions = Parameters<typeof Line>['0']['options'];
+Chart.register(annotationPlugin);
 
 const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
-  ChartJS.register(annotationPlugin);
   const [showTimezones, setShowTimezones] = useState<boolean>(false);
+  const style = getComputedStyle(document.body);
+  const textColor = style.getPropertyValue('--textColor');
 
   const annotations = [
-    pacificAnnotation,
-    euRuAnnotation,
-    auAsiaAnnotation,
-    usAnnotation,
-    usAnnotation2,
+    {
+      type: 'box' as const,
+      backgroundColor: 'rgba(206, 17, 67, 0.09)',
+      borderWidth: 0,
+      xMin: 5,
+      xMax: 8,
+      label: {
+        drawTime: 'afterDraw',
+        color: textColor,
+        display: true,
+        content: 'Pacific',
+        position: {
+          x: 'center',
+          y: 'start',
+        },
+      },
+    },
+    {
+      type: 'box' as const,
+      backgroundColor: 'rgba(10, 255, 0, 0.09)',
+      borderWidth: 0,
+      xMin: 16,
+      xMax: 23,
+      label: {
+        color: textColor,
+        drawTime: 'afterDraw',
+        display: true,
+        content: 'EU/RU',
+        position: {
+          x: 'center',
+          y: 'start',
+        },
+      },
+    },
+    {
+      type: 'box' as const,
+      backgroundColor: 'rgba(152, 110, 3, 0.09)',
+      borderWidth: 0,
+      xMin: 8,
+      xMax: 16,
+      label: {
+        color: textColor,
+        drawTime: 'afterDraw',
+        display: true,
+        content: 'AU/ASIA',
+        position: {
+          x: 'center',
+          y: 'start',
+        },
+      },
+    },
+    {
+      type: 'box' as const,
+      backgroundColor: 'rgba(0, 31, 213, 0.09)',
+      borderWidth: 0,
+      xMin: 23,
+      xMax: 24,
+      label: {
+        color: textColor,
+        drawTime: 'afterDraw',
+        display: true,
+        content: 'US',
+        position: {
+          x: 'center',
+          y: 'start',
+        },
+      },
+    },
+    {
+      type: 'box' as const,
+      backgroundColor: 'rgba(0, 31, 213, 0.09)',
+      borderWidth: 0,
+      xMin: 0,
+      xMax: 5,
+      label: {
+        color: textColor,
+        drawTime: 'afterDraw',
+        display: true,
+        content: 'US',
+        position: {
+          x: 'center',
+          y: 'start',
+        },
+      },
+    },
   ];
 
   const countTimestampsByHour = (timestamps: IdTime[]) => {
@@ -42,15 +116,13 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
     return counts;
   };
 
-  // fix annotation types
-
-  const options: LineChartOptions = {
+  const options = {
     type: 'line',
     responsive: true,
     scales: {
       y: {
         ticks: {
-          color: 'white',
+          color: textColor,
         },
         title: {
           display: true,
@@ -59,7 +131,7 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
       },
       x: {
         ticks: {
-          color: 'white',
+          color: textColor,
         },
         title: {
           display: true,
@@ -74,11 +146,6 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
     },
     plugins: {
       annotation: {
-        common: {
-          drawTime: 'beforeDraw',
-        },
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         annotations: showTimezones ? annotations : {},
       },
       legend: {

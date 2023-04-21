@@ -1,7 +1,13 @@
+body {
+  margin: 0;
+  min-width: 320px;
+  height: 100%;
+  background-color: var(--backgroundColor);
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  /*text-align: start;*/
   transition: var(--transition);
 }
 
@@ -10,35 +16,38 @@
   line-height: 1.5;
   font-weight: 400;
   box-sizing: border-box;
-
-  /*color-scheme: light dark;*/
-  --textColorLight: rgba(255, 255, 255, 0.87);
-  --accentColor: #646cff;
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  color-scheme: light dark;
 
+  /* Variables */
+
+  /* Dark scheme colors */
+  --textColor: rgba(255, 255, 255, 0.87);
+  --accentColor: rgba(100, 108, 255, 1);
+  --accentShadowColor: rgba(100, 108, 255, 0.5);
+  --backgroundColor: rgba(36, 36, 36, 1);
+  --backgroundElementColor: rgba(26, 26, 26, 1);
+  --backgroundColorHover: rgba(159, 195, 248, 0.44);
+
+  /* Animation */
   --easing: cubic-bezier(0.645, 0.045, 0.355, 1);
   --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+  /* Other */
+  --borderWidth: 1px;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--accentColor);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--accentColor);
 }
 
 p {
@@ -46,15 +55,16 @@ p {
   padding: 0;
 }
 
-/*@media (prefers-color-scheme: light) {*/
-/*  :root {*/
-/*    color: #213547;*/
-/*    background-color: #ffffff;*/
-/*  }*/
-/*  a:hover {*/
-/*    color: #747bff;*/
-/*  }*/
-/*  button {*/
-/*    background-color: #f9f9f9;*/
-/*  }*/
-/*}*/
+/* Light scheme colors */
+@media (prefers-color-scheme: light) {
+  :root {
+    --backgroundColor: #efefe9;
+    --backgroundElementColor: rgba(190, 190, 190, 0.75);
+    --backgroundColorHover: rgba(55, 170, 215, 0.35);
+    --accentColor: #37aad7;
+    --accentShadowColor: #70c3e3;
+    --textColor: #2a3342;
+
+    --borderWidth: 2px;
+  }
+}

@@ -61,6 +61,7 @@ export interface IdTime {
 export interface FormData {
   name: string;
   entityType: EntityType;
+  onlyFreshData?: boolean;
 }
 
 export type EntityType = 'Character' | 'Corporation' | 'Alliance' | 'System';

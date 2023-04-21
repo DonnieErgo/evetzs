@@ -1,15 +1,15 @@
 .button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: var(--borderWidth) solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--backgroundElementColor);
   cursor: pointer;
   transition: var(--transition);
   min-width: 165px;
-  color: var(--textColorLight);
+  color: var(--textColor);
 }
 
 .button:hover {
@@ -23,11 +23,11 @@
 
 .button:focus,
 .button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: none;
 }
 
-.button.button-glow:not([disabled]) {
-  box-shadow: 0 0 5px 2px rgba(100, 108, 255, 0.5);
+.button.button-glow:not([disabled]):not(:hover) {
+  box-shadow: 0 0 5px 2px var(--accentShadowColor);
 }
 
 .loader {
@@ -45,8 +45,8 @@
   height: 16px;
   margin: 0;
   border-radius: 50%;
-  border: 2px solid #fff;
-  border-color: #fff transparent #fff transparent;
+  border: 0 none var(--textColor);
+  border-bottom: 2px solid var(--textColor);
   animation: loader 1.5s linear infinite;
   transition: var(--transition);
 }
