@@ -51,10 +51,8 @@ const App: FC = () => {
       };
 
       // fetching ZKB data
-      const [latestKills, latestLosses]: [HashId[], HashId[]] = await Promise.all([
-        getZKBData(zkbKillsDataPack),
-        getZKBData(zkbLossesDataPack),
-      ]);
+      const latestKills: HashId[] = await getZKBData(zkbKillsDataPack);
+      const latestLosses: HashId[] = await getZKBData(zkbLossesDataPack);
 
       // fetching timestamps from ESI
       const [killsTimestamps, lossesTimestamps]: [IdTime[], IdTime[]] = await Promise.all([

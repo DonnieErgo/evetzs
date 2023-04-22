@@ -28,7 +28,7 @@ const getZKBData = async (props: GetLatestDataProps): Promise<HashId[]> => {
 
     kills = kills.concat(newKills);
     page++;
-    await new Promise((r) => setTimeout(r, 1200));
+    await new Promise((r) => setTimeout(r, 1050));
   }
 
   return kills;
