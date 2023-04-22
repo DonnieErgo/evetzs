@@ -79,3 +79,8 @@ export interface GetIdResponse {
 }
 
 export type KillDataType = 'kills' | 'losses' | 'w-space' | 'solo';
+
+export interface ChartReadyData {
+  kills: IdTime[];
+  losses: IdTime[];
+}

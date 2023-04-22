@@ -1,6 +1,6 @@
-import { ESIKillmail, HashId, IdTime } from '../types/types';
+import { ESIKillmail, HashId, IdTime } from '../../types/types';
 
-const getTimestamps = async (hashIds: HashId[]): Promise<IdTime[] | string> => {
+const getTimestamps = async (hashIds: HashId[]): Promise<IdTime[]> => {
   const countRejectedPromises = (results: PromiseSettledResult<unknown>[]): number =>
     results.filter((result) => result.status === 'rejected').length;
 
@@ -20,8 +20,7 @@ const getTimestamps = async (hashIds: HashId[]): Promise<IdTime[] | string> => {
 
   const settledResponses = await Promise.allSettled(responses);
   if (countRejectedPromises(settledResponses) > 50) {
-    console.error('Unable to get timestamps from ESI');
-    return 'Unable to get timestamps from ESI';
+    throw new Error('Unable to get timestamps from ESI');
   }
 
   return settledResponses

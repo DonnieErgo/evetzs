@@ -4,16 +4,12 @@ import { Chart } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { FC, useState } from 'react';
 import { Line } from 'react-chartjs-2';
-import { IdTime } from '../../types/types';
+import { ChartReadyData, IdTime } from '../../types/types';
 import Button from '../Button/Button';
-
-interface TimeChartProps {
-  timeArray: IdTime[];
-}
 
 Chart.register(annotationPlugin);
 
-const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
+const TimeChart: FC<ChartReadyData> = ({ kills, losses }) => {
   const [showTimezones, setShowTimezones] = useState<boolean>(false);
   const style = getComputedStyle(document.body);
   const textColor = style.getPropertyValue('--textColor');
@@ -126,7 +122,8 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
         },
         title: {
           display: true,
-          text: '1000 Latest Kills',
+          text: 'Latest 1000 Kills and 500 Losses',
+          color: textColor,
         },
       },
       x: {
@@ -136,6 +133,7 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
         title: {
           display: true,
           text: 'EvE Time',
+          color: textColor,
         },
       },
     },
@@ -150,11 +148,7 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
       },
       legend: {
         position: 'top' as const,
-        display: false,
-      },
-      title: {
-        display: false,
-        text: 'ZKB Kills',
+        display: true,
       },
     },
     interaction: {
@@ -166,11 +160,18 @@ const TimeChart: FC<TimeChartProps> = ({ timeArray }) => {
     labels: [...Array(25).keys()],
     datasets: [
       {
-        label: 'ZKB Kills',
-        display: false,
-        backgroundColor: 'rgba(173,173,173,0.2)',
-        borderColor: 'rgb(122,122,122)',
-        data: countTimestampsByHour(timeArray),
+        label: 'Kills',
+        backgroundColor: 'rgba(21,128,37,0.15)',
+        borderColor: 'rgb(21,128,37)',
+        data: countTimestampsByHour(kills),
+        lineTension: 0.2,
+        fill: true,
+      },
+      {
+        label: 'Losses',
+        backgroundColor: 'rgba(248,0,0,0.2)',
+        borderColor: 'rgb(178,5,5)',
+        data: countTimestampsByHour(losses),
         lineTension: 0.2,
         fill: true,
       },
