@@ -122,7 +122,7 @@ const TimeChart: FC<ChartReadyData> = ({ kills, losses }) => {
         },
         title: {
           display: true,
-          text: 'Latest 1000 Kills and 500 Losses',
+          text: 'Latest 800 Kills and 400 Losses',
           color: textColor,
         },
       },

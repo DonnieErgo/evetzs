@@ -41,13 +41,13 @@ const App: FC = () => {
         id: entityID,
         entityType: entityType,
         dataType: 'kills',
-        sampleSize: 1000,
+        sampleSize: 800,
       };
       const zkbLossesDataPack: GetLatestDataProps = {
         id: entityID,
         entityType: entityType,
         dataType: 'losses',
-        sampleSize: 500,
+        sampleSize: 499,
       };
 
       // fetching ZKB data
