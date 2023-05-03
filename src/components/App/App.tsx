@@ -3,7 +3,7 @@ import getId from '../../helpers/api/getId';
 import getTimestamps from '../../helpers/api/getTimestamps';
 import getZKBData, { GetLatestDataProps } from '../../helpers/api/getZKBData';
 import { ChartReadyData, FormData, HashId, IdTime } from '../../types/types';
-import ErrorPopup from '../Error/error';
+import ErrorPopup from '../Error/errorPopup';
 import Footer from '../Footer/footer';
 import Form from '../Form/form';
 import TimeChart from '../TimeChart/timeChart';
@@ -12,12 +12,10 @@ import TimeChart from '../TimeChart/timeChart';
   TODO: ! add theme switch, fix dropdown opacity on light
   TODO: ! SEO as metadata, robots.txt and previews for reddit/discord/etc
   TODO: ! add checkboxes for losses / w-space / solo datasets, add input for sampleSize
-  TODO: ! add option to set amount of kills to gather in api function
   TODO: ! check for memoization/caching options
   TODO: ! a11y
+  TODO: ! test chart progress bar https://www.chartjs.org/docs/latest/samples/advanced/progress-bar.html
   TODO: BACKLOG add local time adapter as button "use local time"
-  TODO: BACKLOG choose data timeframe (or let user choose 1y / last 1k kills)
-  TODO: BACKLOG render chart and fetch data simultaneously + animation
   TODO: BACKLOG short summary module like top3 systems + main TZ + lowsec/null
   TODO: BACKLOG caps and bigger only switch
   TODO: BACKLOG add module showing which days of week player is doing, maybe even day-dependent time
@@ -47,7 +45,7 @@ const App: FC = () => {
         id: entityID,
         entityType: entityType,
         dataType: 'losses',
-        sampleSize: 499,
+        sampleSize: 400,
       };
 
       // fetching ZKB data
@@ -80,7 +78,6 @@ const App: FC = () => {
       {error && <ErrorPopup showing={Boolean(error)} message={error} />}
       <div style={{ position: 'fixed', top: '10px', left: '10px', color: '#20a289' }}>beta</div>
       <Form loading={loading} onSubmit={handleFormSubmit} />
-      {/* show progress bar https://www.chartjs.org/docs/latest/samples/advanced/progress-bar.html */}
       {timestampsArray && <TimeChart {...timestampsArray} />}
       <Footer />
     </>

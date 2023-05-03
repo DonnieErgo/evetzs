@@ -4,7 +4,7 @@ import { DropdownOptions, EntityType, FormData } from '../../types/types';
 import Button from '../Button/Button';
 import DropdownMenu from '../DropdownMenu/dropdownMenu';
 import './form.css';
-import Error from '../Error/error';
+import ErrorPopup from '../Error/errorPopup';
 
 interface FormProps {
   onSubmit: ({ name, entityType }: FormData) => void;
@@ -41,10 +41,12 @@ const Form: FC<FormProps> = ({ onSubmit, loading }) => {
 
   return (
     <form onSubmit={(e) => handleSubmit(e)} className="form">
-      {validationError && <Error showing={Boolean(validationError)} message={validationError} />}
+      {validationError && (
+        <ErrorPopup showing={Boolean(validationError)} message={validationError} />
+      )}
       <label className="formLabel">
         <input
-          placeholder={'Enter name...'}
+          placeholder="Enter name..."
           className="input"
           disabled={loading}
           type="text"

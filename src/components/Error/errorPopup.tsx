@@ -6,8 +6,8 @@ interface ErrorProps {
   message: string;
 }
 
-const Error: FC<ErrorProps> = ({ showing, message }) => (
+const ErrorPopup: FC<ErrorProps> = ({ showing, message }) => (
   <div className={`error ${showing ? 'visible' : ''}`}>{message}</div>
 );
 
-export default Error;
+export default ErrorPopup;
