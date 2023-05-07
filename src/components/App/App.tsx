@@ -9,10 +9,8 @@ import Form from '../Form/form';
 import TimeChart from '../TimeChart/timeChart';
 
 /*
-  TODO: ! add theme switch, fix dropdown opacity on light
-  TODO: ! SEO as metadata, robots.txt and previews for reddit/discord/etc
+  TODO: ! add theme switch
   TODO: ! add checkboxes for losses / w-space / solo datasets, add input for sampleSize
-  TODO: ! check for memoization/caching options
   TODO: ! a11y
   TODO: ! test chart progress bar https://www.chartjs.org/docs/latest/samples/advanced/progress-bar.html
   TODO: BACKLOG add local time adapter as button "use local time"
@@ -49,6 +47,7 @@ const App: FC = () => {
       };
 
       // fetching ZKB data
+      // sample size limited to 1200 due to api restrictions
       const latestKills: HashId[] = await getZKBData(zkbKillsDataPack);
       const latestLosses: HashId[] = await getZKBData(zkbLossesDataPack);
 

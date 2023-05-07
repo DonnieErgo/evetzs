@@ -1,22 +1,9 @@
-## EvE Entity Timezones
+### EvE Entity Timezones Analyzer
+Web service that allows users to pull data for entity (character, corporation, alliance, or system) and  generate a graph that displays the entity's activity over a 24-hour period.
 
-TODO: Write a project description
+Latest version: https://evetzs.bleakark.com/
 
-### Documentation
-
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README.
-For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
-
-### Running Tests
-
-Describe and show how to run the tests with code examples.
-
-### Contributing
-
-* Create Issues
-* Message me on discord, tag is in Whitmore ingame bio
-
-### License
-
-TODO: Licensing in case of opening source
-
+#### Backlog
+- Theme switch in addition to color-scheme
+- More options for different data samples
+- Top and recent systems/shiptypes/other block 

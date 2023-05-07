@@ -28,6 +28,8 @@ const getZKBData = async (props: GetLatestDataProps): Promise<HashId[]> => {
 
     kills = kills.concat(newKills);
     page++;
+
+    // API restricts requests to 1 per second
     await new Promise((r) => setTimeout(r, 1050));
   }
 

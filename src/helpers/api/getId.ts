@@ -13,7 +13,9 @@ const getId = async (name: string, entityType: EntityType): Promise<number> => {
     options,
   );
   if (!response.ok) throw new Error('Could not get ID');
+
   const data: GetIdResponse = await response.json();
+
   switch (entityType) {
     case 'Character': {
       if (!data.characters) throw notFoundErr;
